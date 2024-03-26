@@ -24,9 +24,9 @@ jobs:
         sudo apt upgrade
         sudo apt install unzip
         sudo wget https://github.com/mozilla/geckodriver/releases/download/v0.34.0/geckodriver-v0.34.0-linux64.tar.gz
-        sudo tar -xvzf geckodriver-v0.34.0-linux64.tar.gz
-        sudo chmod +x geckodriver-v0.34.0-linux64
-        sudo export PATH=$PATH:/geckodriver/
+        sudo sh -c 'tar -x geckodriver -zf geckodriver-v0.34.0-linux64.tar.gz -O > /usr/bin/geckodriver'
+        sudo chmod +x /usr/bin/geckodriver
+        export PATH=$PATH:/usr/bin/geckodriver
         pip install --upgrade pip
         pip install robotframework robotframework-seleniumlibrary
         robot -d ./output/ ./tc01.robot
