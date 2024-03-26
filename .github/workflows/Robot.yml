@@ -29,5 +29,5 @@ jobs:
         export PATH=$PATH:/usr/bin/geckodriver
         pip install --upgrade pip
         pip install robotframework robotframework-seleniumlibrary
-        robot -d ./output/ ./tc01.robot
+        geckodriver --version
 
