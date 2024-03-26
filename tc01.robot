@@ -5,8 +5,7 @@ Library    SeleniumLibrary
 
 *** Test Cases ***
 TC01
-    Create Webdriver    Firefox
-    Go To    https://www.saucedemo.com/
+    Open Browser   https://www.saucedemo.com/    firefox
     Maximize Browser Window
     Sleep    3
     Close Browser
