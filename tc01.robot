@@ -1,9 +1,12 @@
 *** Settings ***
 Library    Collections
+Library    SeleniumLibrary
 
 
 *** Test Cases ***
 TC01
-    ${Dic}    Create Dictionary    name=harish
-    ${json}    Evaluate    json.dumps($Dic)    json
-    Log    ${json}
+    Create Webdriver    Chrome
+    Go To    https://www.saucedemo.com/
+    Maximize Browser Window
+    Sleep    3
+    Close Browser
