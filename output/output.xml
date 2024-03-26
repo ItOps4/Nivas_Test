@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot generator="Robot 6.0.2 (Python 3.10.0 on win32)" generated="20240326 19:07:19.379" rpa="false" schemaversion="3">
+<suite id="s1" name="Tc01" source="C:\Github_actions_test\tc01.robot">
+<test id="s1-t1" name="TC01" line="6">
+<kw name="Create Dictionary" library="BuiltIn">
+<var>${Dic}</var>
+<arg>name=harish</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<msg timestamp="20240326 19:07:19.428" level="INFO">${Dic} = {'name': 'harish'}</msg>
+<status status="PASS" starttime="20240326 19:07:19.428" endtime="20240326 19:07:19.428"/>
+</kw>
+<kw name="Evaluate" library="BuiltIn">
+<var>${json}</var>
+<arg>json.dumps($Dic)</arg>
+<arg>json</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<msg timestamp="20240326 19:07:19.442" level="INFO">${json} = {"name": "harish"}</msg>
+<status status="PASS" starttime="20240326 19:07:19.429" endtime="20240326 19:07:19.442"/>
+</kw>
+<kw name="Log" library="BuiltIn">
+<arg>${json}</arg>
+<doc>Logs the given message with the given level.</doc>
+<msg timestamp="20240326 19:07:19.443" level="INFO">{"name": "harish"}</msg>
+<status status="PASS" starttime="20240326 19:07:19.443" endtime="20240326 19:07:19.443"/>
+</kw>
+<status status="PASS" starttime="20240326 19:07:19.426" endtime="20240326 19:07:19.444"/>
+</test>
+<status status="PASS" starttime="20240326 19:07:19.382" endtime="20240326 19:07:19.446"/>
+</suite>
+<statistics>
+<total>
+<stat pass="1" fail="0" skip="0">All Tests</stat>
+</total>
+<tag>
+</tag>
+<suite>
+<stat pass="1" fail="0" skip="0" id="s1" name="Tc01">Tc01</stat>
+</suite>
+</statistics>
+<errors>
+</errors>
+</robot>
