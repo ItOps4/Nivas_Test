@@ -30,4 +30,5 @@ jobs:
         pip install --upgrade pip
         pip install robotframework robotframework-seleniumlibrary
         geckodriver --version
+        robot -d ./output/ ./tc01.robot
 
