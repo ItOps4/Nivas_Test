@@ -17,12 +17,12 @@ jobs:
         python-version: ${{ matrix.python-version }}
     - name: Install dependencies
       run: |
-        apt-get update
-        apt-get install firefox
-        firefox --version
-        apt-get unzip
-        curl https://github.com/mozilla/geckodriver/releases/download/v0.34.0/geckodriver-v0.34.0-linux64.tar.gz
-        unzip geckodriver-v0.34.0-linux64.tar.gz
+        sudo apt-get update
+        sudo apt-get install firefox
+        sudo firefox --version
+        sudo apt-get unzip
+        sudo curl https://github.com/mozilla/geckodriver/releases/download/v0.34.0/geckodriver-v0.34.0-linux64.tar.gz
+        sudo unzip geckodriver-v0.34.0-linux64.tar.gz
         pip install --upgrade pip
         pip install robotframework robotframework-seleniumlibrary
         robot -d ./output/ ./tc01.robot
