@@ -22,7 +22,7 @@ jobs:
         sudo firefox --version
         sudo apt update
         sudo apt upgrade
-        sudo apt-get unzip
+        sudo apt install unzip
         sudo curl https://github.com/mozilla/geckodriver/releases/download/v0.34.0/geckodriver-v0.34.0-linux64.tar.gz
         sudo unzip geckodriver-v0.34.0-linux64.tar.gz
         pip install --upgrade pip
