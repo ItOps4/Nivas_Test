@@ -1,17 +1,14 @@
 from selenium import webdriver
-from selenium.webdriver.chrome.options import Options
-from webdriver_manager.chrome import ChromeDriverManager
+from selenium.webdriver.firefox.options import Options
+from webdriver_manager.firefox import GeckoDriverManager
 import time
 
-# Configure Chrome options for headless mode
-chrome_options = Options()
-chrome_options.add_argument("--headless")  # Enable headless mode
+# Configure Firefox options for headless mode
+firefox_options = Options()
+firefox_options.add_argument("--headless")  # Enable headless mode
 
-# Initialize Chrome WebDriver with options
-driver = webdriver.Chrome(ChromeDriverManager().install(), options=chrome_options)
-
-# Maximize the window (not applicable in headless mode)
-# driver.maximize_window()
+# Initialize Firefox WebDriver with options
+driver = webdriver.Firefox(executable_path=GeckoDriverManager().install(), options=firefox_options)
 
 # Navigate to the website
 driver.get("https://www.saucedemo.com/")
