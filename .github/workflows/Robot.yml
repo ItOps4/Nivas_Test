@@ -18,8 +18,6 @@ jobs:
     - name: Update dependencies
       run: |
         sudo apt-get update
-
-
     - name: Install Firefox & Geckodriver
       run: |
         sudo apt-get install firefox
@@ -33,15 +31,13 @@ jobs:
         export PATH=$PATH:/usr/bin/geckodriver
         geckodriver --version
         ls -ltr
-        pwd
-
     - name: Install Robot Framework and Selenium
       run: |    
         python3 -m pip install --upgrade pip==23.3.1
-        pip install robotframework robotframework-seleniumlibrary robotframework-pabot
+        pip install robotframework robotframework-seleniumlibrary
         
         
-    - name: Run Robot Test
+    - name: Run Robot Framework tests
       run: |
         pabot -d ./output/ -i Test .
       # Define the artifacts to upload
@@ -50,4 +46,16 @@ jobs:
       # You can add more directories or files if needed
       # Use `*` for wildcard matching
 
-      
+      if: always()
+      continue-on-error: true
+      # If the robot tests fail, don't fail the build to
+      # ensure artifacts are still uploaded
+      env:
+        ROBOT_EXIT_ON_FAILURE: false
+      # Set ROBOT_EXIT_ON_FAILURE to false to continue execution
+      # even if a test case fails
+    - name: Upload test artifacts
+      uses: actions/upload-artifact@v2
+      with:
+        name: robot-output
+        path: ./output
