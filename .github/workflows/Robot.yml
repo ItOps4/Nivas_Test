@@ -37,28 +37,16 @@ jobs:
     - name: Install Robot Framework and Selenium
       run: |    
         python3 -m pip install --upgrade pip==23.3.1
-        pip install robotframework robotframework-seleniumlibrary
+        pip install robotframework robotframework-seleniumlibrary webdriver-manager
         
         
-    - name: Run Robot Framework tests
+    - name: Run Python Test
       run: |
-        robot -d ./output/ ./tc01.robot
+        sample.py
       # Define the artifacts to upload
       # The `output` directory will be uploaded as an artifact
       # after the tests have run
       # You can add more directories or files if needed
       # Use `*` for wildcard matching
 
-      if: always()
-      continue-on-error: true
-      # If the robot tests fail, don't fail the build to
-      # ensure artifacts are still uploaded
-      env:
-        ROBOT_EXIT_ON_FAILURE: false
-      # Set ROBOT_EXIT_ON_FAILURE to false to continue execution
-      # even if a test case fails
-    - name: Upload test artifacts
-      uses: actions/upload-artifact@v2
-      with:
-        name: robot-output
-        path: ./output
+      

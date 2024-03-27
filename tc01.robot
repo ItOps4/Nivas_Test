@@ -9,3 +9,4 @@ TC01
     Maximize Browser Window
     Sleep    5
     Close Browser
+    
