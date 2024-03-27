@@ -33,7 +33,5 @@ jobs:
         robot -d ./output/ ./tc01.robot
         
     - uses: actions/download-artifact@v4
-      name: my-artifact
     - name: Display structure of downloaded files
       run: ls -R
-    
