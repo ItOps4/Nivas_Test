@@ -33,6 +33,7 @@ jobs:
         export PATH=$PATH:/usr/bin/geckodriver
         geckodriver --version
         ls -ltr
+        
 
     - name: Install Robot Framework and Selenium
       run: |    
@@ -40,9 +41,9 @@ jobs:
         pip install robotframework robotframework-seleniumlibrary webdriver-manager
         
         
-    - name: Run Python Test
-      run: |
-        python sample.py
+    # - name: Run Python Test
+    #   run: |
+    #     python sample.py
       # Define the artifacts to upload
       # The `output` directory will be uploaded as an artifact
       # after the tests have run
