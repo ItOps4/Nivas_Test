@@ -1,14 +1,17 @@
 from selenium import webdriver
 from selenium.webdriver.firefox.options import Options
-from webdriver_manager.firefox import GeckoDriverManager
 import time
 
 # Configure Firefox options for headless mode
 firefox_options = Options()
-firefox_options.add_argument("--headless")  # Enable headless mode
+firefox_options.headless = True  # Enable headless mode
+
+# Specify the path to the Firefox WebDriver executable
+# Update this path to the location of your geckodriver executable
+firefox_driver_path = 'geckodriver'
 
 # Initialize Firefox WebDriver with options
-driver = webdriver.Firefox(executable_path=GeckoDriverManager().install(), options=firefox_options)
+driver = webdriver.Firefox(executable_path=firefox_driver_path, options=firefox_options)
 
 # Navigate to the website
 driver.get("https://www.saucedemo.com/")
