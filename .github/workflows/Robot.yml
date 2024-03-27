@@ -38,12 +38,12 @@ jobs:
     - name: Install Robot Framework and Selenium
       run: |    
         python3 -m pip install --upgrade pip==23.3.1
-        pip install robotframework robotframework-seleniumlibrary webdriver-manager
+        pip install robotframework robotframework-seleniumlibrary robotframework-pabot
         
         
-    - name: Run Python Test
+    - name: Run Robot Test
       run: |
-        python sample.py
+        pabot -d .\output\ -i Test .
       # Define the artifacts to upload
       # The `output` directory will be uploaded as an artifact
       # after the tests have run
