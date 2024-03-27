@@ -34,7 +34,7 @@ jobs:
     - name: Install Robot Framework and Selenium
       run: |    
         python3 -m pip install --upgrade pip==23.3.1
-        pip install robotframework robotframework-seleniumlibrary
+        pip install robotframework robotframework-seleniumlibrary robotframework-pabot
         
         
     - name: Run Robot Framework tests
