@@ -42,7 +42,7 @@ jobs:
         
     - name: Run Python Test
       run: |
-        sample.py
+        python sample.py
       # Define the artifacts to upload
       # The `output` directory will be uploaded as an artifact
       # after the tests have run
