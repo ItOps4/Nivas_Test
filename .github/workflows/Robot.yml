@@ -20,17 +20,20 @@ jobs:
         sudo apt-get update
     - name: Install Firefox & Geckodriver
       run: |
+        sudo apt upgrade
+        sudo apt install unzip
         sudo apt install wget
         sudo wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
         sudo dpkg -i google-chrome-stable_current_amd64.deb
         sudo apt-get install -f
         google-chrome --version
-        sudo wget https://chromedriver.storage.googleapis.com/92.0.4515.107/chromedriver_linux64.zip
+        sudo wget https://storage.googleapis.com/chrome-for-testing-public/123.0.6312.86/linux64/chromedriver-linux64.zip
         sudo unzip chromedriver_linux64.zip
         sudo mv chromedriver /usr/bin/chromedriver
         sudo chown root:root /usr/bin/chromedriver
         sudo chmod +x /usr/bin/chromedriver
         chromedriver --url-base=/wd/hub
+        export PATH=$PATH:/usr/bin/chromedriver
 
 
     - name: Install Robot Framework and Selenium
