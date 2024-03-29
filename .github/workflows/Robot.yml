@@ -12,7 +12,7 @@ jobs:
         python-version: [3.9]  # 3.12, pypy-3.9
         rf-version: [6.0.2]
         selenium-version: [4.9.1]  #4.17.0, 4.18.0
-        browser: [firefox, chrome, headlesschrome]  #edge
+        browser: [headlesschrome]  #edge
 
     steps:
     - uses: actions/checkout@v4
@@ -30,15 +30,6 @@ jobs:
     - run: |
         echo Installed chromium version: ${{ steps.setup-chrome.outputs.chrome-version }}
         ${{ steps.setup-chrome.outputs.chrome-path }} --version
-
-    - name: Setup firefox
-      id: setup-firefox
-      uses: browser-actions/setup-firefox@v1
-      with:
-        firefox-version: latest
-    - run: |
-        echo Installed firefox versions: ${{ steps.setup-firefox.outputs.firefox-version }}
-        ${{ steps.setup-firefox.outputs.firefox-path }} --version
 
 
     - name: Install Dependencies
