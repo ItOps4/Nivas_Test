@@ -6,9 +6,10 @@ Library    SeleniumLibrary
 
 *** Test Cases ***
 TC01
-    [Tags]    Test
-    Open Browser   https://www.saucedemo.com/    firefox    options=add_argument("--headless")    executable_path=geckodriver
+    [Tags]    Test2
+    Open Browser   https://www.saucedemo.com/    chrome    options=add_argument("--headless")    executable_path=/usr/bin/chromedriver
     Maximize Browser Window
     Sleep    7
     Close Browser
+    
     

@@ -20,17 +20,19 @@ jobs:
         sudo apt-get update
     - name: Install Firefox & Geckodriver
       run: |
-        sudo apt-get install firefox
-        sudo firefox --version
-        sudo apt update
-        sudo apt upgrade
-        sudo apt install unzip
-        sudo wget https://github.com/mozilla/geckodriver/releases/download/v0.34.0/geckodriver-v0.34.0-linux64.tar.gz
-        sudo sh -c 'tar -x geckodriver -zf geckodriver-v0.34.0-linux64.tar.gz -O > /usr/bin/geckodriver'
-        sudo chmod +x /usr/bin/geckodriver
-        export PATH=$PATH:/usr/bin/geckodriver
-        geckodriver --version
-        ls -ltr
+        sudo apt install wget
+        sudo wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+        sudo dpkg -i google-chrome-stable_current_amd64.deb
+        sudo apt-get install -f
+        google-chrome --version
+        sudo wget https://chromedriver.storage.googleapis.com/92.0.4515.107/chromedriver_linux64.zip
+        sudo unzip chromedriver_linux64.zip
+        sudo mv chromedriver /usr/bin/chromedriver
+        sudo chown root:root /usr/bin/chromedriver
+        sudo chmod +x /usr/bin/chromedriver
+        chromedriver --url-base=/wd/hub
+
+
     - name: Install Robot Framework and Selenium
       run: |    
         python3 -m pip install --upgrade pip==23.3.1
@@ -39,7 +41,7 @@ jobs:
         
     - name: Run Robot Framework tests
       run: |
-        pabot -d ./output/ -i Test .
+        pabot -d ./output/ -i Test2 .
       # Define the artifacts to upload
       # The `output` directory will be uploaded as an artifact
       # after the tests have run
