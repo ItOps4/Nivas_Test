@@ -18,7 +18,7 @@ jobs:
     - name: Update dependencies
       run: |
         sudo apt-get update
-    - name: Install Firefox & Geckodriver
+    - name: Install Chrome Dependencies
       run: |
         sudo apt upgrade
         sudo apt install unzip
