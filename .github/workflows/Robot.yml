@@ -1,4 +1,4 @@
-name: SeleniumLibrary CI
+name: Productor_Regression_Test
 
 on: [push, pull_request]
 
@@ -9,9 +9,9 @@ jobs:
     continue-on-error: true
     strategy:
       matrix:
-        python-version: [3.8, 3.11]  # 3.12, pypy-3.9
-        rf-version: [5.0.1, 6.1.1, 7.0]
-        selenium-version: [4.14.0, 4.15.2, 4.16.0]  #4.17.0, 4.18.0
+        python-version: [3.9]  # 3.12, pypy-3.9
+        rf-version: [6.0.2]
+        selenium-version: [4.9.1]  #4.17.0, 4.18.0
         browser: [firefox, chrome, headlesschrome]  #edge
 
     steps:
@@ -20,6 +20,8 @@ jobs:
       uses: actions/setup-python@v5
       with:
         python-version: ${{ matrix.python-version }}
+
+
     - name: Setup Chrome
       uses: browser-actions/setup-chrome@latest
       with:
@@ -28,6 +30,7 @@ jobs:
     - run: |
         echo Installed chromium version: ${{ steps.setup-chrome.outputs.chrome-version }}
         ${{ steps.setup-chrome.outputs.chrome-path }} --version
+
     - name: Setup firefox
       id: setup-firefox
       uses: browser-actions/setup-firefox@v1
@@ -38,12 +41,12 @@ jobs:
         ${{ steps.setup-firefox.outputs.firefox-path }} --version
 
 
-    - name: Install Robot Framework and Selenium
+    - name: Install Dependencies
       run: |    
         python3 -m pip install --upgrade pip==23.3.1
-        pip install robotframework robotframework-seleniumlibrary robotframework-pabot
+        pip install -r requirements.txt
 
-    - name: Run Robot Framework tests
+    - name: Run Robot Framework Suites
       run: |
         pabot -d ./output/ -i Test2 . 
 
