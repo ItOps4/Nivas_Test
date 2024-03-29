@@ -1,67 +1,63 @@
-name: RobotFramework
+name: SeleniumLibrary CI
 
-on: [push]
+on: [push, pull_request]
 
 jobs:
   build:
+
     runs-on: ubuntu-latest
+    continue-on-error: true
     strategy:
       matrix:
-        python-version: ["3.9"]
+        python-version: [3.8, 3.11]  # 3.12, pypy-3.9
+        rf-version: [5.0.1, 6.1.1, 7.0]
+        selenium-version: [4.14.0, 4.15.2, 4.16.0]  #4.17.0, 4.18.0
+        browser: [firefox, chrome, headlesschrome]  #edge
+
     steps:
-    - uses: actions/checkout@v3
-    - name: Set up Python ${{ matrix.python-version }}
-      uses: actions/setup-python@v3
+    - uses: actions/checkout@v4
+    - name: Set up Python ${{ matrix.python-version }} with Robot Framework ${{ matrix.rf-version }}
+      uses: actions/setup-python@v5
       with:
         python-version: ${{ matrix.python-version }}
-
-    - name: Update dependencies
-      run: |
-        sudo apt-get update
-    - name: Install Firefox & Geckodriver
-      run: |
-        sudo apt upgrade
-        sudo apt install unzip
-        sudo apt install wget
-        sudo wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
-        sudo dpkg -i google-chrome-stable_current_amd64.deb
-        sudo apt-get install -f
-        google-chrome --version
-        sudo wget https://storage.googleapis.com/chrome-for-testing-public/123.0.6312.86/linux64/chromedriver-linux64.zip
-        sudo unzip chromedriver-linux64
-        sudo ls
-        sudo mv chromedriver-linux64/chromedriver /usr/bin/chromedriver
-        sudo chown root:root /usr/bin/chromedriver
-        sudo chmod +x /usr/bin/chromedriver
-        chromedriver --url-base=/wd/hub
-        export PATH=$PATH:/usr/bin/chromedriver
+    - name: Setup Chrome
+      uses: browser-actions/setup-chrome@latest
+      with:
+        chrome-version: latest
+      id: setup-chrome
+    - run: |
+        echo Installed chromium version: ${{ steps.setup-chrome.outputs.chrome-version }}
+        ${{ steps.setup-chrome.outputs.chrome-path }} --version
+    - name: Setup firefox
+      id: setup-firefox
+      uses: browser-actions/setup-firefox@v1
+      with:
+        firefox-version: latest
+    - run: |
+        echo Installed firefox versions: ${{ steps.setup-firefox.outputs.firefox-version }}
+        ${{ steps.setup-firefox.outputs.firefox-path }} --version
 
 
     - name: Install Robot Framework and Selenium
       run: |    
         python3 -m pip install --upgrade pip==23.3.1
         pip install robotframework robotframework-seleniumlibrary robotframework-pabot
-        
-        
+
     - name: Run Robot Framework tests
       run: |
-        pabot -d ./output/ -i Test2 .
-    #   # Define the artifacts to upload
-    #   # The `output` directory will be uploaded as an artifact
-    #   # after the tests have run
-    #   # You can add more directories or files if needed
-    #   # Use `*` for wildcard matching
+        pabot -d ./output/ -i Test2 . 
 
-    #   if: always()
-    #   continue-on-error: true
-    #   # If the robot tests fail, don't fail the build to
-    #   # ensure artifacts are still uploaded
-    #   env:
-    #     ROBOT_EXIT_ON_FAILURE: false
-    #   # Set ROBOT_EXIT_ON_FAILURE to false to continue execution
-    #   # even if a test case fails
-    # - name: Upload test artifacts
-    #   uses: actions/upload-artifact@v2
-    #   with:
-    #     name: robot-output
-    #     path: ./output
+ 
+      if: always()
+      continue-on-error: true
+      # If the robot tests fail, don't fail the build to
+      # ensure artifacts are still uploaded
+      env:
+        ROBOT_EXIT_ON_FAILURE: false
+      # Set ROBOT_EXIT_ON_FAILURE to false to continue execution
+      # even if a test case fails
+    - name: Upload test artifacts
+      uses: actions/upload-artifact@v2
+      with:
+        name: robot-output
+        path: ./output       
